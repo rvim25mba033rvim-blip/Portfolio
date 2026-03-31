@@ -144,7 +144,68 @@
       transform:translate(var(--px,0),var(--py,0));
       transition:transform .25s linear;
     }
-    .hero-inner{padding-top:100px;padding-bottom:60px}
+    .hero-inner{
+      padding-top:100px;padding-bottom:60px;
+      display:grid;grid-template-columns:42% 58%;gap:70px;align-items:center;
+      max-width:1400px;margin:0 auto;
+    }
+    .hero-photo-side{
+      position:relative;display:flex;align-items:center;justify-content:center;
+      height:100%;min-height:500px;
+    }
+    .hero-photo-wrap{
+      position:relative;width:min(420px,100%);aspect-ratio:1/1;display:grid;place-items:center;
+    }
+    .hero-rings{
+      position:absolute;inset:0;border-radius:50%;
+      background:
+      radial-gradient(circle at center,transparent 42%,rgba(232,255,90,.12) 43%,transparent 45%),
+      radial-gradient(circle at center,transparent 60%,rgba(255,255,255,.1) 61%,transparent 63%);
+      animation:spinRings 20s linear infinite;
+      filter:drop-shadow(0 0 28px rgba(232,255,90,.2));
+    }
+    .hero-photo-card{
+      position:relative;width:75%;aspect-ratio:3/4;border:1px solid var(--accent);background:#080808;
+      overflow:hidden;border-radius:18px;transform-style:preserve-3d;
+      box-shadow:0 40px 90px rgba(232,255,90,.15),0 0 0 1px rgba(232,255,90,.3);
+      transition:transform .2s var(--easing-smooth);
+    }
+    .hero-photo-card::before{
+      content:'';position:absolute;inset:-2px;
+      background:linear-gradient(45deg,var(--accent),transparent,var(--white));
+      border-radius:18px;opacity:.15;animation:borderGlow 3s ease-in-out infinite;
+    }
+    @keyframes borderGlow{
+      0%,100%{opacity:.15}
+      50%{opacity:.35}
+    }
+    .hero-photo-card img{
+      width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);
+      position:relative;z-index:1;
+    }
+    .hero-photo-glow{
+      position:absolute;inset:0;z-index:2;
+      background:linear-gradient(135deg,rgba(232,255,90,.15),transparent 45%,rgba(255,255,255,.08));
+      mix-blend-mode:screen;pointer-events:none;
+    }
+    .hero-photo-particles{
+      position:absolute;inset:-30%;
+      background-image:
+        radial-gradient(circle at 20% 80%,rgba(232,255,90,.4) 0%,transparent 15%),
+        radial-gradient(circle at 80% 20%,rgba(255,255,255,.3) 0%,transparent 15%),
+        radial-gradient(circle at 40% 40%,rgba(232,255,90,.2) 0%,transparent 10%);
+      filter:blur(40px);
+      animation:floatParticles 8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes floatParticles{
+      0%,100%{transform:translate(0,0) scale(1)}
+      50%{transform:translate(20px,-20px) scale(1.1)}
+    }
+    @keyframes spinRings{to{transform:rotate(360deg)}}
+    .hero-content-side{
+      position:relative;z-index:3;
+    }
     .hero-status{
       display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--white-60);
       border:1px solid var(--border-hi);border-radius:100px;padding:6px 14px;margin-bottom:36px;backdrop-filter:blur(8px);
@@ -233,43 +294,6 @@
       width:1px;height:48px;background:linear-gradient(to bottom,var(--muted),transparent);animation:scroll-line 2s ease-in-out infinite;
     }
     @keyframes scroll-line{50%{opacity:.3}}
-
-    /* Photo section */
-    #photo{border-top:1px solid var(--border);padding-top:90px}
-    .photo-layout{
-      display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;
-    }
-    .photo-orb-wrap{
-      position:relative;width:min(420px,90%);aspect-ratio:1/1;margin:0 auto;display:grid;place-items:center;
-    }
-    .photo-rings{
-      position:absolute;inset:0;border-radius:50%;
-      background:
-      radial-gradient(circle at center,transparent 42%,rgba(232,255,90,.09) 43%,transparent 45%),
-      radial-gradient(circle at center,transparent 60%,rgba(255,255,255,.08) 61%,transparent 63%);
-      animation:spinRings 16s linear infinite;
-      filter:drop-shadow(0 0 22px rgba(232,255,90,.15));
-    }
-    @keyframes spinRings{to{transform:rotate(360deg)}}
-
-    .photo-card{
-      position:relative;width:68%;aspect-ratio:3/4;border:1px solid var(--border-hi);background:#080808;
-      overflow:hidden;border-radius:14px;transform-style:preserve-3d;
-      box-shadow:0 30px 70px rgba(0,0,0,.45);transition:transform .2s var(--easing-smooth);
-    }
-    .photo-card img{
-      width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.08);
-    }
-    .photo-glow{
-      position:absolute;inset:0;
-      background:linear-gradient(130deg,rgba(232,255,90,.12),transparent 42%,rgba(255,255,255,.08));
-      mix-blend-mode:screen;pointer-events:none;
-    }
-    .photo-meta p{color:var(--white-60);max-width:46ch;margin-bottom:18px}
-    .photo-badges{display:flex;flex-wrap:wrap;gap:10px}
-    .photo-badges span{
-      border:1px solid var(--border-hi);padding:8px 12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--white-60);
-    }
 
     /* About */
     #about{border-top:1px solid var(--border)}
@@ -481,7 +505,13 @@
       }
       .nav-links.open{display:flex}
       .nav-ham{display:flex}
-      .about-grid,.skills-layout,.edu-grid,.contact-grid,.photo-layout{grid-template-columns:1fr;gap:40px}
+      .hero-inner{grid-template-columns:1fr;gap:50px;padding-top:120px}
+      .hero-photo-side{min-height:400px;order:1}
+      .hero-content-side{order:2;text-align:center}
+      .hero-status,.hero-accent-line,.hero-cta{margin-left:auto;margin-right:auto}
+      .hero-name{text-align:center}
+      .hero-subtitle{margin-left:auto;margin-right:auto}
+      .about-grid,.skills-layout,.edu-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
       .skill-rings{grid-template-columns:1fr 1fr}
       .hero-name{font-size:clamp(42px,14vw,80px)}
       section{padding:80px 0}
@@ -514,7 +544,6 @@
     <div class="nav-logo">R<span>.</span>M</div>
     <ul class="nav-links" id="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#photo">Photo</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
@@ -526,59 +555,48 @@
   <!-- HERO -->
   <section id="hero">
     <div class="wrapper hero-inner">
-      <div class="hero-status reveal">Available for Opportunities &amp; Collaborations</div>
+      <!-- Photo Left -->
+      <div class="hero-photo-side reveal">
+        <div class="hero-photo-wrap">
+          <div class="hero-rings"></div>
+          <div class="hero-photo-particles"></div>
+          <div class="hero-photo-card" id="hero-tilt-card">
+            <img src="./profile.svg" alt="Rahil M" loading="eager" />
+            <div class="hero-photo-glow"></div>
+          </div>
+        </div>
+      </div>
 
-      <h1 class="hero-name reveal reveal-delay-1">
-        <span class="glitch-wrap" data-text="RAHIL">RAHIL</span>
-        <span class="glitch-wrap" data-text="M">M</span>
-      </h1>
+      <!-- Content Right -->
+      <div class="hero-content-side">
+        <div class="hero-status reveal reveal-delay-1">Available for Opportunities &amp; Collaborations</div>
 
-      <div class="hero-accent-line reveal reveal-delay-2"></div>
+        <h1 class="hero-name reveal reveal-delay-2">
+          <span class="glitch-wrap" data-text="RAHIL">RAHIL</span>
+          <span class="glitch-wrap" data-text="M">M</span>
+        </h1>
 
-      <p class="hero-subtitle reveal reveal-delay-3">
-        <span class="typed-text" id="typed-text"></span><span class="cursor-blink"></span>
-      </p>
+        <div class="hero-accent-line reveal reveal-delay-3"></div>
 
-      <div class="hero-cta reveal reveal-delay-4">
-        <a href="#experience" class="btn-primary"><span>View My Work</span><span>↓</span></a>
-        <a href="mailto:rm725366@gmail.com" class="btn-ghost">Get in Touch →</a>
-        <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="btn-ghost btn-resume"><span>View LinkedIn Profile →</span></a>
+        <p class="hero-subtitle reveal reveal-delay-4">
+          <span class="typed-text" id="typed-text"></span><span class="cursor-blink"></span>
+        </p>
+
+        <div class="hero-cta reveal reveal-delay-5">
+          <a href="#experience" class="btn-primary"><span>View My Work</span><span>↓</span></a>
+          <a href="mailto:rm725366@gmail.com" class="btn-ghost">Get in Touch →</a>
+          <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="btn-ghost btn-resume"><span>View LinkedIn Profile →</span></a>
+        </div>
       </div>
     </div>
 
     <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
   </section>
 
-  <!-- PHOTO -->
-  <section id="photo">
-    <div class="wrapper">
-      <div class="section-label">00 — Identity</div>
-      <div class="photo-layout reveal">
-        <div class="photo-orb-wrap">
-          <div class="photo-rings"></div>
-          <div class="photo-card" id="tilt-card">
-            <img src="./profile.svg" alt="Rahil M portrait" loading="lazy" />
-            <div class="photo-glow"></div>
-          </div>
-        </div>
-        <div class="photo-meta">
-          <h2 class="section-title" style="margin-bottom:18px;">A face behind<br><em>the framework</em></h2>
-          <p>
-            I combine systems thinking, analytics, and execution mindset to solve
-            operations challenges with measurable business outcomes.
-          </p>
-          <div class="photo-badges">
-            <span>MBA Candidate</span><span>Ops + SCM</span><span>Business Analytics</span><span>Engineering Backbone</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ABOUT -->
   <section id="about">
     <div class="wrapper">
-      <div class="section-label">01 — About</div>
+      <div class="section-label">00 — About</div>
       <div class="about-grid">
         <div>
           <div class="about-text reveal">
@@ -615,7 +633,7 @@
   <!-- SKILLS -->
   <section id="skills">
     <div class="wrapper">
-      <div class="section-label">02 — Skills</div>
+      <div class="section-label">01 — Skills</div>
       <h2 class="section-title">Technical <em>&amp; Core</em><br>Competencies</h2>
 
       <div class="skills-layout">
@@ -679,7 +697,7 @@
   <!-- EXPERIENCE -->
   <section id="experience">
     <div class="wrapper">
-      <div class="section-label">03 — Experience</div>
+      <div class="section-label">02 — Experience</div>
       <h2 class="section-title">Professional<br><em>&amp; Internship</em> Track</h2>
       <div class="timeline">
         <div class="timeline-item reveal">
@@ -719,7 +737,7 @@
   <!-- EDUCATION -->
   <section id="education">
     <div class="wrapper">
-      <div class="section-label">04 — Education</div>
+      <div class="section-label">03 — Education</div>
       <h2 class="section-title">Academic<br><em>Background</em></h2>
       <div class="edu-grid">
         <div class="edu-card reveal">
@@ -749,7 +767,7 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="wrapper">
-      <div class="section-label">05 — Contact</div>
+      <div class="section-label">04 — Contact</div>
       <div class="contact-grid">
         <div class="reveal">
           <div class="contact-big">Let's<br>Talk<span>.</span></div>
@@ -812,7 +830,7 @@
       }
       animateRing();
 
-      document.querySelectorAll('a,button,.tag,.stat-card,.edu-card,.chip,.photo-card').forEach(el=>{
+      document.querySelectorAll('a,button,.tag,.stat-card,.edu-card,.chip,.hero-photo-card').forEach(el=>{
         el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
         el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
       });
@@ -955,18 +973,18 @@
       },{passive:true});
     })();
 
-    // 8. Photo tilt
+    // 8. Hero photo tilt
     (function(){
-      const card=document.getElementById('tilt-card');
+      const card=document.getElementById('hero-tilt-card');
       if(!card) return;
       card.addEventListener('mousemove',e=>{
         const r=card.getBoundingClientRect();
         const x=e.clientX-r.left,y=e.clientY-r.top;
-        const rx=((y/r.height)-.5)*-10;
-        const ry=((x/r.width)-.5)*10;
-        card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateZ(8px)`;
+        const rx=((y/r.height)-.5)*-8;
+        const ry=((x/r.width)-.5)*8;
+        card.style.transform=`perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(12px)`;
       });
-      card.addEventListener('mouseleave',()=>card.style.transform='rotateX(0deg) rotateY(0deg) translateZ(0px)');
+      card.addEventListener('mouseleave',()=>card.style.transform='perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)');
     })();
   </script>
 </body>
