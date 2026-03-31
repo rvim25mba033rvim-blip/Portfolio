@@ -14,9 +14,15 @@ This portfolio is deployed using GitHub Pages. Visit the live site at:
 ## 🛠️ Features
 
 - Responsive design
-- Custom cursor effects
+- Custom cursor effects with touch support
 - Particle animation canvas
-- Smooth scrolling
+- **Enhanced scrolling features:**
+  - Smooth scrolling with navbar offset
+  - Scroll progress indicator at the top
+  - Scroll-to-top button
+  - Parallax scrolling effects
+  - Scroll-triggered reveal animations
+  - Active navigation link highlighting
 - Modern dark theme with accent colors
 - Interactive project cards with 3D tilt effects
 
