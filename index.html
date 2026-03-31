@@ -117,19 +117,42 @@
     }
     .section-title em{font-style:normal;color:var(--white-60)}
 
-    /* smoother reveal */
+    /* smoother reveal with enhanced scroll animations */
     .reveal{
       opacity:0;
-      transform:translateY(26px) scale(.985);
-      filter:blur(4px);
-      transition:opacity .9s var(--easing-smooth),transform .9s var(--easing-smooth),filter .9s var(--easing-smooth);
+      transform:translateY(40px) scale(.97);
+      filter:blur(6px);
+      transition:opacity 1s var(--easing-smooth),transform 1s var(--easing-smooth),filter 1s var(--easing-smooth);
     }
     .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
-    .reveal-delay-1{transition-delay:.1s}
-    .reveal-delay-2{transition-delay:.2s}
-    .reveal-delay-3{transition-delay:.3s}
-    .reveal-delay-4{transition-delay:.4s}
-    .reveal-delay-5{transition-delay:.5s}
+    .reveal-delay-1{transition-delay:.15s}
+    .reveal-delay-2{transition-delay:.3s}
+    .reveal-delay-3{transition-delay:.45s}
+    .reveal-delay-4{transition-delay:.6s}
+    .reveal-delay-5{transition-delay:.75s}
+
+    /* Slide in from left animation */
+    .slide-in-left{
+      opacity:0;
+      transform:translateX(-60px);
+      transition:opacity .9s var(--easing-smooth),transform .9s var(--easing-smooth);
+    }
+    .slide-in-left.visible{opacity:1;transform:translateX(0)}
+
+    /* Slide in from right animation */
+    .slide-in-right{
+      opacity:0;
+      transform:translateX(60px);
+      transition:opacity .9s var(--easing-smooth),transform .9s var(--easing-smooth);
+    }
+    .slide-in-right.visible{opacity:1;transform:translateX(0)}
+
+    /* Fade in animation */
+    .fade-in{
+      opacity:0;
+      transition:opacity 1.2s var(--easing-smooth);
+    }
+    .fade-in.visible{opacity:1}
 
     /* Hero */
     #hero{
@@ -441,6 +464,59 @@
     .lang-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--white-60)}
     .lang-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
 
+    /* My Work */
+    #work{border-top:1px solid var(--border)}
+    .work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px}
+    .work-card{
+      border:1px solid var(--border);background:var(--surface);padding:32px;
+      position:relative;transition:all .4s var(--easing-smooth);overflow:hidden;
+      display:flex;flex-direction:column;
+    }
+    .work-card::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,var(--accent-dim) 0%,transparent 60%);
+      opacity:0;transition:opacity .4s;
+    }
+    .work-card:hover{
+      border-color:var(--accent);transform:translateY(-6px);
+      box-shadow:0 12px 40px rgba(232,255,90,.15);
+    }
+    .work-card:hover::before{opacity:1}
+    .work-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:16px;position:relative;z-index:1}
+    .work-icon{
+      width:48px;height:48px;border:1px solid var(--border-hi);border-radius:8px;
+      display:flex;align-items:center;justify-content:center;font-size:24px;
+      background:var(--bg);transition:all .3s;
+    }
+    .work-card:hover .work-icon{border-color:var(--accent);transform:rotate(5deg) scale(1.1)}
+    .work-links{display:flex;gap:12px}
+    .work-link{
+      width:32px;height:32px;border:1px solid var(--border-hi);border-radius:4px;
+      display:flex;align-items:center;justify-content:center;font-size:14px;
+      color:var(--white-60);transition:all .3s;background:var(--bg);
+    }
+    .work-link:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.1)}
+    .work-title{
+      font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--white);
+      margin-bottom:12px;letter-spacing:.02em;position:relative;z-index:1;
+    }
+    .work-desc{
+      font-size:13px;line-height:1.7;color:var(--white-60);margin-bottom:20px;
+      flex-grow:1;position:relative;z-index:1;
+    }
+    .work-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;position:relative;z-index:1}
+    .work-tag{
+      font-size:10px;letter-spacing:.1em;color:var(--accent);
+      border:1px solid var(--accent-dim);padding:4px 10px;border-radius:2px;
+      background:rgba(232,255,90,.05);transition:all .2s;
+    }
+    .work-tag:hover{background:var(--accent);color:var(--bg)}
+    .work-category{
+      display:inline-block;font-size:9px;letter-spacing:.25em;text-transform:uppercase;
+      color:var(--accent);border:1px solid var(--accent-dim);padding:4px 10px;
+      border-radius:2px;margin-bottom:20px;position:relative;z-index:1;
+    }
+
     /* Contact */
     #contact{border-top:1px solid var(--border);padding-bottom:80px}
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
@@ -505,17 +581,38 @@
       }
       .nav-links.open{display:flex}
       .nav-ham{display:flex}
-      .hero-inner{grid-template-columns:1fr;gap:50px;padding-top:120px}
+      .hero-inner{grid-template-columns:1fr;gap:50px;padding-top:120px;padding-left:20px;padding-right:20px}
       .hero-photo-side{min-height:400px;order:1}
       .hero-content-side{order:2;text-align:center}
       .hero-status,.hero-accent-line,.hero-cta{margin-left:auto;margin-right:auto}
-      .hero-name{text-align:center}
-      .hero-subtitle{margin-left:auto;margin-right:auto}
+      .hero-name{text-align:center;font-size:clamp(42px,12vw,80px);white-space:nowrap}
+      .hero-name .glitch-wrap{display:inline-block}
+      .hero-subtitle{margin-left:auto;margin-right:auto;max-width:90%}
+      .hero-cta{justify-content:center}
+      .btn-primary,.btn-ghost{font-size:10px;padding:12px 20px}
       .about-grid,.skills-layout,.edu-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+      .work-grid{grid-template-columns:1fr;gap:24px}
       .skill-rings{grid-template-columns:1fr 1fr}
-      .hero-name{font-size:clamp(42px,14vw,80px)}
+      .timeline{padding-left:30px}
+      .timeline-dot{left:-34px}
       section{padding:80px 0}
       footer{padding:20px;flex-direction:column;align-items:flex-start}
+      .contact-chips{justify-content:center}
+      .about-stats{grid-template-columns:1fr 1fr}
+      .stat-card{padding:20px 16px}
+      .stat-num{font-size:28px}
+    }
+
+    @media (max-width:480px){
+      .hero-name{font-size:clamp(36px,11vw,60px)}
+      .hero-photo-wrap{width:min(320px,90%)}
+      .skill-rings{grid-template-columns:1fr 1fr}
+      .ring-svg{width:80px;height:80px}
+      .btn-primary,.btn-ghost{font-size:9px;padding:10px 16px;gap:6px}
+      .hero-cta{flex-direction:column;gap:12px;width:100%}
+      .hero-cta a{width:100%;justify-content:center}
+      .work-card{padding:24px}
+      .work-icon{width:40px;height:40px;font-size:20px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -547,6 +644,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#work">My Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-ham" id="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -764,10 +862,129 @@
     </div>
   </section>
 
+  <!-- MY WORK -->
+  <section id="work">
+    <div class="wrapper">
+      <div class="section-label">04 — My Work</div>
+      <h2 class="section-title">Projects <em>&amp; Activities</em></h2>
+      <div class="work-grid">
+
+        <div class="work-card reveal">
+          <div class="work-category">GitHub Project</div>
+          <div class="work-header">
+            <div class="work-icon">🚀</div>
+            <div class="work-links">
+              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="GitHub">→</a>
+            </div>
+          </div>
+          <h3 class="work-title">Portfolio Website</h3>
+          <p class="work-desc">A modern, responsive portfolio website built with pure HTML, CSS, and JavaScript. Features custom cursor effects, particle animations, smooth scroll animations, and a cyberpunk-inspired design system.</p>
+          <div class="work-tags">
+            <span class="work-tag">HTML/CSS</span>
+            <span class="work-tag">JavaScript</span>
+            <span class="work-tag">UI/UX</span>
+            <span class="work-tag">Animations</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal reveal-delay-1">
+          <div class="work-category">GitHub Project</div>
+          <div class="work-header">
+            <div class="work-icon">📊</div>
+            <div class="work-links">
+              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="GitHub">→</a>
+            </div>
+          </div>
+          <h3 class="work-title">Data Analytics Projects</h3>
+          <p class="work-desc">Collection of data analysis and visualization projects using Python, SQL, and Power BI. Includes supply chain optimization, inventory analysis, and business intelligence dashboards.</p>
+          <div class="work-tags">
+            <span class="work-tag">Python</span>
+            <span class="work-tag">SQL</span>
+            <span class="work-tag">Power BI</span>
+            <span class="work-tag">Analytics</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal reveal-delay-2">
+          <div class="work-category">Activity</div>
+          <div class="work-header">
+            <div class="work-icon">🎓</div>
+            <div class="work-links">
+              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="LinkedIn">↗</a>
+            </div>
+          </div>
+          <h3 class="work-title">MBA Research & Case Studies</h3>
+          <p class="work-desc">Academic research projects focusing on supply chain management, operations optimization, and business analytics. Conducted comprehensive case studies on real-world business challenges.</p>
+          <div class="work-tags">
+            <span class="work-tag">Research</span>
+            <span class="work-tag">Supply Chain</span>
+            <span class="work-tag">Case Studies</span>
+            <span class="work-tag">Strategy</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal reveal-delay-3">
+          <div class="work-category">Activity</div>
+          <div class="work-header">
+            <div class="work-icon">⚙️</div>
+            <div class="work-links">
+              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="LinkedIn">↗</a>
+            </div>
+          </div>
+          <h3 class="work-title">Industrial Automation Projects</h3>
+          <p class="work-desc">Hands-on experience with PLC programming, control panel design, and industrial automation systems. Implemented Ladder Logic solutions for manufacturing process optimization.</p>
+          <div class="work-tags">
+            <span class="work-tag">PLC</span>
+            <span class="work-tag">Ladder Logic</span>
+            <span class="work-tag">Automation</span>
+            <span class="work-tag">Engineering</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal reveal-delay-4">
+          <div class="work-category">Activity</div>
+          <div class="work-header">
+            <div class="work-icon">📈</div>
+            <div class="work-links">
+              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="LinkedIn">↗</a>
+            </div>
+          </div>
+          <h3 class="work-title">Market Research Initiatives</h3>
+          <p class="work-desc">Conducted market research and customer outreach campaigns during internship at Amazon Fresh. Analyzed market trends and identified growth opportunities in the Bengaluru region.</p>
+          <div class="work-tags">
+            <span class="work-tag">Market Research</span>
+            <span class="work-tag">Analysis</span>
+            <span class="work-tag">Customer Insights</span>
+            <span class="work-tag">Strategy</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal reveal-delay-5">
+          <div class="work-category">GitHub Project</div>
+          <div class="work-header">
+            <div class="work-icon">🔧</div>
+            <div class="work-links">
+              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="GitHub">→</a>
+            </div>
+          </div>
+          <h3 class="work-title">Open to Collaboration</h3>
+          <p class="work-desc">Actively seeking collaboration opportunities on data analytics, supply chain optimization, and automation projects. Open to contributing to open-source projects and learning from the community.</p>
+          <div class="work-tags">
+            <span class="work-tag">Collaboration</span>
+            <span class="work-tag">Open Source</span>
+            <span class="work-tag">Learning</span>
+            <span class="work-tag">Community</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="wrapper">
-      <div class="section-label">04 — Contact</div>
+      <div class="section-label">05 — Contact</div>
       <div class="contact-grid">
         <div class="reveal">
           <div class="contact-big">Let's<br>Talk<span>.</span></div>
@@ -810,16 +1027,41 @@
     // Footer year
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // 2. Custom cursor
+    // 2. Custom cursor (with touch support)
     (function(){
       const ring=document.getElementById('cursor-ring');
       const dot=document.getElementById('cursor-dot');
       let mouseX=0,mouseY=0,ringX=0,ringY=0;
+      const isTouchDevice='ontouchstart' in window || navigator.maxTouchPoints>0;
+
+      function updateCursorPosition(x,y){
+        mouseX=x;mouseY=y;
+        dot.style.left=mouseX+'px';dot.style.top=mouseY+'px';
+      }
 
       document.addEventListener('mousemove',e=>{
-        mouseX=e.clientX;mouseY=e.clientY;
-        dot.style.left=mouseX+'px';dot.style.top=mouseY+'px';
+        updateCursorPosition(e.clientX,e.clientY);
       });
+
+      // Touch support - cursor follows finger
+      document.addEventListener('touchmove',e=>{
+        if(e.touches.length>0){
+          const touch=e.touches[0];
+          updateCursorPosition(touch.clientX,touch.clientY);
+        }
+      },{passive:true});
+
+      document.addEventListener('touchstart',e=>{
+        if(e.touches.length>0){
+          const touch=e.touches[0];
+          updateCursorPosition(touch.clientX,touch.clientY);
+          document.body.classList.add('cursor-click');
+        }
+      },{passive:true});
+
+      document.addEventListener('touchend',()=>{
+        document.body.classList.remove('cursor-click');
+      },{passive:true});
 
       function animateRing(){
         ringX+=(mouseX-ringX)*0.12;
@@ -830,9 +1072,11 @@
       }
       animateRing();
 
-      document.querySelectorAll('a,button,.tag,.stat-card,.edu-card,.chip,.hero-photo-card').forEach(el=>{
+      document.querySelectorAll('a,button,.tag,.stat-card,.edu-card,.chip,.hero-photo-card,.work-card,.work-link').forEach(el=>{
         el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
         el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+        el.addEventListener('touchstart',()=>document.body.classList.add('cursor-hover'),{passive:true});
+        el.addEventListener('touchend',()=>document.body.classList.remove('cursor-hover'),{passive:true});
       });
 
       document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
@@ -910,9 +1154,9 @@
       setTimeout(tick,900);
     })();
 
-    // 5. Reveal observer + skills anim
+    // 5. Reveal observer + skills anim (enhanced scroll animations)
     (function(){
-      const reveals=document.querySelectorAll('.reveal');
+      const reveals=document.querySelectorAll('.reveal, .slide-in-left, .slide-in-right, .fade-in');
       const observer=new IntersectionObserver(entries=>{
         entries.forEach(e=>{
           if(e.isIntersecting){
@@ -925,7 +1169,7 @@
             });
           }
         });
-      },{threshold:.15});
+      },{threshold:.12});
       reveals.forEach(el=>observer.observe(el));
 
       const skillSection=document.getElementById('skills');
