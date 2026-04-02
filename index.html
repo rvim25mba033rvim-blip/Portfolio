@@ -274,7 +274,7 @@
     }
     .hero-name .glitch-wrap::after{
       color:#ff4d8d;clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);
-      animation:glitch-bot 4s infinite linear;left:-2px;
+      animation:glitch-bot 1s infinite linear;left:-2px;
     }
     @keyframes glitch-top{
       0%,88%,92%,100%{transform:none;opacity:0}
@@ -287,6 +287,47 @@
       86%{transform:translateX(4px);opacity:.7}
       87%{transform:translateX(-3px);opacity:.7}
       88%{transform:translateX(2px);opacity:.7}
+    }
+
+    /* Alternative 1: RGB split glitch (toggle class to chroma-wrap) */
+    .hero-name .chroma-wrap{position:relative;display:block}
+    .hero-name .chroma-wrap::before,
+    .hero-name .chroma-wrap::after{
+      content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;
+    }
+    .hero-name .chroma-wrap::before{
+      color:#27f7ff;mix-blend-mode:screen;transform:translateX(-1px);
+      animation:chroma-shift-cyan 2.6s infinite steps(1,end);
+    }
+    .hero-name .chroma-wrap::after{
+      color:#ff3ea6;mix-blend-mode:screen;transform:translateX(1px);
+      animation:chroma-shift-pink 2.6s infinite steps(1,end);
+    }
+    @keyframes chroma-shift-cyan{
+      0%,82%,100%{opacity:0;transform:translateX(0)}
+      84%{opacity:.8;transform:translateX(-3px)}
+      86%{opacity:.65;transform:translateX(2px)}
+      88%{opacity:.75;transform:translateX(-1px)}
+      90%{opacity:0;transform:translateX(0)}
+    }
+    @keyframes chroma-shift-pink{
+      0%,80%,100%{opacity:0;transform:translateX(0)}
+      83%{opacity:.7;transform:translateX(3px)}
+      85%{opacity:.6;transform:translateX(-2px)}
+      87%{opacity:.75;transform:translateX(1px)}
+      89%{opacity:0;transform:translateX(0)}
+    }
+
+    /* Alternative 2: Neon flicker (toggle class to neon-wrap) */
+    .hero-name .neon-wrap{
+      position:relative;display:block;color:#fff;
+      text-shadow:0 0 8px rgba(255,255,255,.25),0 0 20px rgba(192,227,20,.25),0 0 36px rgba(192,227,20,.15);
+      animation:neon-flicker 3.4s infinite;
+    }
+    @keyframes neon-flicker{
+      0%,17%,21%,59%,63%,100%{opacity:1;filter:brightness(1)}
+      18%,20%{opacity:.45;filter:brightness(.8)}
+      60%,62%{opacity:.62;filter:brightness(.9)}
     }
 
     .hero-accent-line{width:80px;height:3px;background:var(--accent);margin:24px 0}
@@ -721,6 +762,7 @@
         <div class="hero-status reveal reveal-delay-1">Available for Opportunities &amp; Collaborations</div>
 
         <h1 class="hero-name reveal reveal-delay-2">
+          <!-- Toggle class here: glitch-wrap | chroma-wrap | neon-wrap -->
           <span class="glitch-wrap" data-text="RAHIL M">RAHIL M</span>
         </h1>
 
