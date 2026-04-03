@@ -1751,9 +1751,7 @@
         if(metaTheme) metaTheme.setAttribute('content',applied==='dark'?'#000000':'#f4f8f1');
       }
 
-      const stored=localStorage.getItem(KEY);
-      const initial=(stored==='dark'||stored==='light'||stored==='system')?stored:'light';
-      updateTheme(initial);
+      updateTheme('dark');
 
       let nudgeShown=sessionStorage.getItem(NUDGE_KEY)==='1';
       let nudgeTimer=null;
