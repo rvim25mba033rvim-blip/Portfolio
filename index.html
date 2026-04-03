@@ -647,10 +647,26 @@
     #scroll-progress{
       position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;
       background:transparent;
+      overflow:visible;
     }
     #scroll-progress-bar{
-      height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--white));
-      transition:width .1s linear;box-shadow:0 0 10px var(--accent);
+      height:100%;width:0%;
+      background:linear-gradient(90deg,var(--accent),var(--white));
+      transition:width .1s linear;
+      box-shadow:0 0 10px var(--accent);
+      position:relative;
+    }
+    #scroll-progress-bar::after{
+      content:'';
+      position:absolute;
+      right:-9px;
+      top:50%;
+      width:18px;
+      height:18px;
+      transform:translateY(-50%) rotate(0deg);
+      background:var(--rocket-cursor) center/contain no-repeat;
+      filter:drop-shadow(0 0 8px rgba(192,227,20,.45));
+      pointer-events:none;
     }
 
     /* Loader */
