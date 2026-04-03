@@ -416,35 +416,44 @@
 
     /* Skills */
     #skills{border-top:1px solid var(--border)}
-    .skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px}
-    .skill-rings{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-    .skill-ring-item{display:flex;flex-direction:column;align-items:center;gap:12px}
-    .ring-svg{width:100px;height:100px}
-    .ring-bg{fill:none;stroke:var(--border-hi);stroke-width:6}
-    .ring-fg{
-      fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;
-      transform:rotate(-90deg);transform-origin:50% 50%;
-      stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1.5s var(--easing);
+    .skills-logo-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:22px;
+      margin-top:20px;
     }
-    .ring-label{
-      font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--white-60);text-align:center;
+    .skill-logo-item{
+      border:1px solid var(--border);
+      background:var(--surface);
+      padding:22px 14px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      min-height:130px;
+      transition:border-color .25s var(--easing),transform .25s var(--easing),box-shadow .25s var(--easing);
     }
-    .ring-pct{
-      position:absolute;font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white);
+    .skill-logo-item:hover{
+      border-color:var(--accent);
+      transform:translateY(-4px);
+      box-shadow:0 10px 30px rgba(232,255,90,.12);
     }
-    .ring-wrap{position:relative;display:flex;align-items:center;justify-content:center}
-
-    .skill-bar-item{margin-bottom:26px}
-    .skill-bar-header{display:flex;justify-content:space-between;margin-bottom:8px}
-    .skill-bar-name{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--white)}
-    .skill-bar-pct{font-family:var(--font-display);font-size:11px;color:var(--accent)}
-    .bar-track{height:2px;background:var(--border-hi);border-radius:1px;overflow:hidden}
-    .bar-fill{
-      height:100%;background:linear-gradient(90deg,var(--accent),var(--white));width:0;
-      transition:width 1.4s var(--easing);border-radius:1px;
+    .skill-logo-item img{
+      width:46px;
+      height:46px;
+      object-fit:contain;
+      filter:drop-shadow(0 0 6px rgba(232,255,90,.18));
     }
-
-    .competency-cloud{margin-top:50px}
+    .skill-logo-item span{
+      font-size:10px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--white-60);
+      text-align:center;
+      line-height:1.4;
+    }
+    .competency-cloud{margin-top:40px}
     .competency-cloud h3{
       font-family:var(--font-body);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;
     }
@@ -710,9 +719,9 @@
       .hero-subtitle{margin-left:auto;margin-right:auto;max-width:90%}
       .hero-cta{justify-content:center}
       .btn-primary,.btn-ghost{font-size:10px;padding:12px 20px}
-      .about-grid,.skills-layout,.edu-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+      .about-grid,.edu-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+      .skills-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
       .work-grid{grid-template-columns:1fr;gap:24px}
-      .skill-rings{grid-template-columns:1fr 1fr}
       .timeline{padding-left:30px}
       .timeline-dot{left:-34px}
       section{padding:80px 0}
@@ -726,8 +735,9 @@
     @media (max-width:480px){
       .hero-name{font-size:clamp(36px,11vw,60px)}
       .hero-photo-wrap{width:min(320px,90%)}
-      .skill-rings{grid-template-columns:1fr 1fr}
-      .ring-svg{width:80px;height:80px}
+      .skills-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+      .skill-logo-item{padding:18px 10px;min-height:115px}
+      .skill-logo-item img{width:40px;height:40px}
       .btn-primary,.btn-ghost{font-size:9px;padding:10px 16px;gap:6px}
       .hero-cta{flex-direction:column;gap:12px;width:100%}
       .hero-cta a{width:100%;justify-content:center}
@@ -937,61 +947,56 @@
   <section id="skills">
     <div class="wrapper">
       <div class="section-label">03 — Skills</div>
-      <h2 class="section-title">Technical <em>&amp; Core</em><br>Competencies</h2>
+      <h2 class="section-title">Tools <em>&amp; Platforms</em></h2>
 
-      <div class="skills-layout">
-        <div>
-          <div class="skill-rings" id="skill-rings">
-            <div class="skill-ring-item reveal">
-              <div class="ring-wrap">
-                <svg class="ring-svg" viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fg" cx="50" cy="50" r="40" data-pct="75"/></svg>
-                <span class="ring-pct">75%</span>
-              </div><div class="ring-label">SQL</div>
-            </div>
-            <div class="skill-ring-item reveal reveal-delay-1">
-              <div class="ring-wrap">
-                <svg class="ring-svg" viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fg" cx="50" cy="50" r="40" data-pct="70"/></svg>
-                <span class="ring-pct">70%</span>
-              </div><div class="ring-label">Python</div>
-            </div>
-            <div class="skill-ring-item reveal reveal-delay-2">
-              <div class="ring-wrap">
-                <svg class="ring-svg" viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fg" cx="50" cy="50" r="40" data-pct="90"/></svg>
-                <span class="ring-pct">90%</span>
-              </div><div class="ring-label">MS Excel</div>
-            </div>
-            <div class="skill-ring-item reveal reveal-delay-3">
-              <div class="ring-wrap">
-                <svg class="ring-svg" viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fg" cx="50" cy="50" r="40" data-pct="65"/></svg>
-                <span class="ring-pct">65%</span>
-              </div><div class="ring-label">Power BI</div>
-            </div>
-          </div>
-
-          <div class="competency-cloud reveal reveal-delay-2">
-            <h3>Core Competencies</h3>
-            <div class="tag-grid">
-              <span class="tag">Inventory Management</span>
-              <span class="tag">Supply / Demand Optimisation</span>
-              <span class="tag">Data Integrity</span>
-              <span class="tag">Process Automation</span>
-              <span class="tag">Critical Thinking</span>
-              <span class="tag">Problem Solving</span>
-              <span class="tag">Adaptability</span>
-              <span class="tag">PLC Programming</span>
-              <span class="tag">Industrial Automation</span>
-              <span class="tag">Market Research</span>
-            </div>
-          </div>
+      <div class="skills-logo-grid">
+        <div class="skill-logo-item reveal">
+          <img src="./images/excel-logo.svg" alt="Microsoft Excel logo" loading="lazy" />
+          <span>Excel</span>
         </div>
+        <div class="skill-logo-item reveal reveal-delay-1">
+          <img src="./images/powerbi-logo.svg" alt="Power BI logo" loading="lazy" />
+          <span>Power BI</span>
+        </div>
+        <div class="skill-logo-item reveal reveal-delay-2">
+          <img src="./images/sql-logo.svg" alt="SQL logo" loading="lazy" />
+          <span>SQL</span>
+        </div>
+        <div class="skill-logo-item reveal reveal-delay-3">
+          <img src="./images/pycharm-logo.svg" alt="PyCharm logo" loading="lazy" />
+          <span>PyCharm</span>
+        </div>
+        <div class="skill-logo-item reveal">
+          <img src="./images/github-logo.svg" alt="GitHub logo" loading="lazy" />
+          <span>GitHub</span>
+        </div>
+        <div class="skill-logo-item reveal reveal-delay-1">
+          <img src="./images/vscode-logo.svg" alt="VS Code logo" loading="lazy" />
+          <span>VS Code</span>
+        </div>
+        <div class="skill-logo-item reveal reveal-delay-2">
+          <img src="./images/prowess-logo.svg" alt="Prowess logo" loading="lazy" />
+          <span>Prowess</span>
+        </div>
+        <div class="skill-logo-item reveal reveal-delay-3">
+          <img src="./images/microsoft-office-logo.svg" alt="Microsoft Office logo" loading="lazy" />
+          <span>Microsoft Office</span>
+        </div>
+      </div>
 
-        <div class="skill-bars reveal reveal-delay-1">
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">MS Excel (Advanced)</span><span class="skill-bar-pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-width="90"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">SQL (Intermediate)</span><span class="skill-bar-pct">75%</span></div><div class="bar-track"><div class="bar-fill" data-width="75"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Python — Data Analysis</span><span class="skill-bar-pct">70%</span></div><div class="bar-track"><div class="bar-fill" data-width="70"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Power BI</span><span class="skill-bar-pct">65%</span></div><div class="bar-track"><div class="bar-fill" data-width="65"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">MATLAB</span><span class="skill-bar-pct">60%</span></div><div class="bar-track"><div class="bar-fill" data-width="60"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">PLC / Ladder Logic</span><span class="skill-bar-pct">65%</span></div><div class="bar-track"><div class="bar-fill" data-width="65"></div></div></div>
+      <div class="competency-cloud reveal reveal-delay-1">
+        <h3>Core Competencies</h3>
+        <div class="tag-grid">
+          <span class="tag">Inventory Management</span>
+          <span class="tag">Supply / Demand Optimisation</span>
+          <span class="tag">Data Integrity</span>
+          <span class="tag">Process Automation</span>
+          <span class="tag">Critical Thinking</span>
+          <span class="tag">Problem Solving</span>
+          <span class="tag">Adaptability</span>
+          <span class="tag">PLC Programming</span>
+          <span class="tag">Industrial Automation</span>
+          <span class="tag">Market Research</span>
         </div>
       </div>
     </div>

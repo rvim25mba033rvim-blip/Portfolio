@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">SQL</title>
+  <desc id="desc">Database cylinder icon for SQL.</desc>
+  <rect width="180" height="180" rx="24" fill="#0E1117"/>
+  <ellipse cx="90" cy="54" rx="46" ry="18" fill="#3AA0FF"/>
+  <path d="M44 54v62c0 10 21 18 46 18s46-8 46-18V54" fill="#2B7FD6"/>
+  <ellipse cx="90" cy="116" rx="46" ry="18" fill="#3AA0FF"/>
+  <ellipse cx="90" cy="86" rx="46" ry="18" fill="#5EB2FF"/>
+  <path d="M62 92h56M62 106h56" stroke="#DFF1FF" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+</svg>

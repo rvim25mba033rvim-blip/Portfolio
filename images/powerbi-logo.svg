@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Power BI</title>
+  <desc id="desc">Power BI style logo tile.</desc>
+  <rect width="180" height="180" rx="24" fill="#121212"/>
+  <rect x="22" y="26" width="136" height="128" rx="18" fill="#F2C811"/>
+  <rect x="50" y="84" width="14" height="38" rx="7" fill="#121212"/>
+  <rect x="72" y="70" width="14" height="52" rx="7" fill="#121212"/>
+  <rect x="94" y="58" width="14" height="64" rx="7" fill="#121212"/>
+  <rect x="116" y="46" width="14" height="76" rx="7" fill="#121212"/>
+</svg>

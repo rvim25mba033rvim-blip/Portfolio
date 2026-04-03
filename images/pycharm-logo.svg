@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">PyCharm</title>
+  <desc id="desc">PyCharm inspired gradient tile with PC mark.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#21D789"/>
+      <stop offset="0.5" stop-color="#0EA5E9"/>
+      <stop offset="1" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" rx="24" fill="url(#g)"/>
+  <rect x="36" y="36" width="108" height="108" rx="12" fill="#101010"/>
+  <path d="M58 118V62h22c14 0 22 8 22 20s-8 20-22 20H70v16H58zm12-26h10c6 0 10-4 10-10s-4-10-10-10H70v20zM108 86c0-14 10-24 24-24 5 0 9 1 13 3v11c-4-3-8-4-12-4-8 0-13 6-13 14s5 14 13 14c4 0 8-1 12-4v11c-4 2-8 3-13 3-14 0-24-10-24-24z" fill="#ffffff"/>
+</svg>
