@@ -710,15 +710,30 @@
       }
       .nav-links a::after{display:none}
       .nav-ham{display:flex}
-      .hero-inner{grid-template-columns:1fr;gap:50px;padding-top:120px;padding-left:20px;padding-right:20px}
-      .hero-photo-side{min-height:400px;order:1}
-      .hero-content-side{order:2;text-align:center}
+      .hero-inner{grid-template-columns:1fr;gap:14px;padding-top:92px;padding-left:20px;padding-right:20px}
+      .hero-photo-side{min-height:320px;order:1}
+      .hero-content-side{order:2;text-align:center;display:flex;flex-direction:column;align-items:center}
       .hero-status,.hero-accent-line,.hero-cta{margin-left:auto;margin-right:auto}
+      .hero-name{order:1}
+      .hero-accent-line{order:2}
+      .hero-cta{order:3}
+      .hero-status{order:4}
+      .hero-subtitle{order:5}
       .hero-name{text-align:center;font-size:clamp(42px,12vw,80px);white-space:nowrap}
       .hero-name .glitch-wrap{display:inline-block}
-      .hero-subtitle{margin-left:auto;margin-right:auto;max-width:90%}
-      .hero-cta{justify-content:center}
-      .btn-primary,.btn-ghost{font-size:10px;padding:12px 20px}
+      .hero-subtitle{margin-left:auto;margin-right:auto;max-width:90%;margin-top:4px;margin-bottom:20px}
+      .hero-cta{
+        justify-content:center;
+        gap:8px;
+        margin-top:8px;
+        margin-bottom:8px;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        align-items:stretch;
+        width:min(420px,100%);
+      }
+      .hero-cta a{width:100%;justify-content:center}
+      .btn-primary,.btn-ghost{font-size:9px;padding:10px 12px;letter-spacing:.14em}
       .about-grid,.edu-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
       .skills-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
       .work-grid{grid-template-columns:1fr;gap:24px}
@@ -734,13 +749,13 @@
 
     @media (max-width:480px){
       .hero-name{font-size:clamp(36px,11vw,60px)}
-      .hero-photo-wrap{width:min(320px,90%)}
+      .hero-photo-wrap{width:min(250px,76%)}
       .skills-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
       .skill-logo-item{padding:18px 10px;min-height:115px}
       .skill-logo-item img{width:40px;height:40px}
-      .btn-primary,.btn-ghost{font-size:9px;padding:10px 16px;gap:6px}
-      .hero-cta{flex-direction:column;gap:12px;width:100%}
-      .hero-cta a{width:100%;justify-content:center}
+      .btn-primary,.btn-ghost{font-size:8px;padding:9px 10px;gap:6px;letter-spacing:.12em}
+      .hero-cta{width:100%;gap:7px;grid-template-columns:1fr 1fr}
+      .hero-cta a{min-width:0}
       .work-card{padding:24px}
       .work-icon{width:40px;height:40px;font-size:20px}
     }
