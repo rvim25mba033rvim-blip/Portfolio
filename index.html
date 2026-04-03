@@ -170,6 +170,59 @@
     }
     .theme-option:hover{color:var(--white);border-color:var(--border-hi);background:var(--white-20)}
     .theme-option.active{color:var(--accent);border-color:var(--accent-dim);background:rgba(232,255,90,.06)}
+    .theme-nudge{
+      position:absolute;
+      top:44px;
+      right:-6px;
+      font-family:var(--font-body);
+      font-size:9px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--white);
+      background:rgba(10,10,10,.94);
+      border:1px solid var(--accent-dim);
+      border-radius:6px;
+      padding:7px 10px;
+      white-space:nowrap;
+      opacity:0;
+      transform:translateY(-6px) scale(.96);
+      pointer-events:none;
+      transition:opacity .35s var(--easing),transform .35s var(--easing);
+      box-shadow:0 10px 24px rgba(0,0,0,.45);
+      z-index:121;
+    }
+    .theme-nudge::before{
+      content:'';
+      position:absolute;
+      top:-6px;
+      right:16px;
+      width:10px;
+      height:10px;
+      background:inherit;
+      border-left:1px solid var(--accent-dim);
+      border-top:1px solid var(--accent-dim);
+      transform:rotate(45deg);
+    }
+    .theme-nudge.show{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+    .theme-wrap.nudge-live .theme-toggle::after{
+      content:'';
+      position:absolute;
+      top:3px;
+      right:3px;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 0 rgba(192,227,20,.7);
+      animation:theme-nudge-ping 1.2s ease-out infinite;
+    }
+    @keyframes theme-nudge-ping{
+      0%{box-shadow:0 0 0 0 rgba(192,227,20,.7)}
+      100%{box-shadow:0 0 0 10px rgba(192,227,20,0)}
+    }
     .nav-ham{display:none;flex-direction:column;gap:5px;cursor:none;background:transparent;border:none}
     .nav-ham span{width:24px;height:1px;background:var(--white);transition:all .3s}
 
@@ -182,6 +235,13 @@
       box-shadow:0 12px 28px rgba(21,33,23,.15);
     }
     body[data-theme='light'] .theme-option.active{background:rgba(47,111,47,.09)}
+    body[data-theme='light'] .theme-nudge{
+      background:rgba(255,255,255,.96);
+      color:#132117;
+      border-color:rgba(47,111,47,.35);
+      box-shadow:0 10px 20px rgba(26,44,30,.16);
+    }
+    body[data-theme='light'] .theme-nudge::before{border-left-color:rgba(47,111,47,.35);border-top-color:rgba(47,111,47,.35)}
     body[data-theme='light'] .theme-toggle:hover{
       background:#dce9d4;
       border-color:#2f6f2f;
@@ -938,6 +998,7 @@
       .nav-actions{gap:10px}
       .theme-toggle{width:32px;height:32px}
       .theme-toggle svg{width:16px;height:16px}
+      .theme-nudge{font-size:8px;letter-spacing:.12em;right:-2px;padding:6px 8px}
       .nav-ham{display:flex}
       .hero-inner{grid-template-columns:1fr;gap:14px;padding-top:92px;padding-left:20px;padding-right:20px}
       .hero-photo-side{min-height:320px;order:1}
@@ -1032,6 +1093,7 @@
         <button class="theme-toggle" id="theme-toggle" aria-label="Theme options" aria-expanded="false" aria-haspopup="menu">
           <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
         </button>
+        <span class="theme-nudge" id="theme-nudge" role="status" aria-live="polite">Try Light Mode</span>
         <div class="theme-menu" id="theme-menu" role="menu" aria-label="Theme mode">
           <button class="theme-option" data-theme-choice="dark" role="menuitem">Dark <span>🌙</span></button>
           <button class="theme-option" data-theme-choice="light" role="menuitem">Light <span>☀</span></button>
@@ -1661,8 +1723,12 @@
       const menu=document.getElementById('theme-menu');
       const options=document.querySelectorAll('.theme-option');
       const icon=document.getElementById('theme-icon');
+      const wrap=document.querySelector('.theme-wrap');
+      const nudge=document.getElementById('theme-nudge');
+      const about=document.getElementById('about');
       const media=window.matchMedia('(prefers-color-scheme: dark)');
       const KEY='portfolio-theme-choice';
+      const NUDGE_KEY='portfolio-theme-nudge-shown';
 
       function iconMarkup(choice){
         if(choice==='dark') return '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"></path>';
@@ -1688,9 +1754,38 @@
       const initial=(stored==='dark'||stored==='light'||stored==='system')?stored:'light';
       updateTheme(initial);
 
+      let nudgeShown=sessionStorage.getItem(NUDGE_KEY)==='1';
+      let nudgeTimer=null;
+      function hideNudge(){
+        if(!nudge) return;
+        nudge.classList.remove('show');
+        if(wrap) wrap.classList.remove('nudge-live');
+      }
+      function showNudge(){
+        if(!nudge||nudgeShown) return;
+        nudgeShown=true;
+        sessionStorage.setItem(NUDGE_KEY,'1');
+        if(wrap) wrap.classList.add('nudge-live');
+        nudge.classList.add('show');
+        if(nudgeTimer) clearTimeout(nudgeTimer);
+        nudgeTimer=setTimeout(hideNudge,3200);
+      }
+
+      function onScrollNudge(){
+        if(nudgeShown||!about) return;
+        const trigger=about.offsetTop-window.innerHeight*0.72;
+        if(window.scrollY>Math.max(80,trigger)){
+          showNudge();
+          window.removeEventListener('scroll',onScrollNudge);
+        }
+      }
+      window.addEventListener('scroll',onScrollNudge,{passive:true});
+      onScrollNudge();
+
       toggle.addEventListener('click',()=>{
         const open=menu.classList.toggle('open');
         toggle.setAttribute('aria-expanded',String(open));
+        hideNudge();
       });
 
       options.forEach(btn=>{
