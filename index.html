@@ -798,6 +798,88 @@
     }
     .footer-links a:hover{color:var(--accent)}
 
+    /* Mobile bottom dock */
+    .mobile-dock{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      width:min(92vw,420px);
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap:6px;
+      padding:8px;
+      border:1px solid var(--border-hi);
+      border-radius:999px;
+      background:rgba(10,10,10,.88);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 16px 34px rgba(0,0,0,.38);
+      z-index:1100;
+    }
+    .mobile-dock-item{
+      flex:1;
+      min-width:0;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:none;
+      background:transparent;
+      color:var(--white-60);
+      border-radius:999px;
+      cursor:none;
+      position:relative;
+      isolation:isolate;
+      transition:background .25s var(--easing),color .25s var(--easing),transform .25s var(--easing),box-shadow .3s var(--easing);
+    }
+    .mobile-dock-item svg{
+      width:22px;
+      height:22px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      position:relative;
+      z-index:1;
+    }
+    .mobile-dock-item:hover{
+      color:var(--white);
+      background:var(--white-20);
+    }
+    .mobile-dock-item.active{
+      color:var(--white);
+      background:var(--white-20);
+      box-shadow:none;
+    }
+    .mobile-dock-item:active{transform:scale(.96)}
+    .mobile-dock-divider{
+      width:1px;
+      height:24px;
+      background:var(--border-hi);
+      opacity:.6;
+      flex-shrink:0;
+    }
+
+    body[data-theme='light'] .mobile-dock{
+      background:rgba(255,255,255,.9);
+      box-shadow:0 12px 26px rgba(26,44,30,.14);
+    }
+    body[data-theme='light'] .mobile-dock-item:hover{
+      color:#102015;
+      background:rgba(47,111,47,.16);
+    }
+    body[data-theme='light'] .mobile-dock-item.active{
+      color:#102015;
+      background:rgba(47,111,47,.16);
+      box-shadow:none;
+    }
+    body[data-theme='light'] .mobile-dock-item.active::after{
+      border-color:rgba(47,111,47,.42);
+    }
+
     /* Scroll to top button */
     #scroll-to-top{
       position:fixed;bottom:30px;right:30px;z-index:999;
@@ -953,6 +1035,8 @@
 
     /* Responsive */
     @media (max-width:768px){
+      body{padding-bottom:104px}
+      .mobile-dock{display:flex}
       #scroll-to-top{width:45px;height:45px;bottom:20px;right:20px;font-size:18px}
       .wrapper{padding:0 20px}
       nav{padding:18px 20px}
@@ -1036,6 +1120,7 @@
       .about-stats{grid-template-columns:1fr 1fr}
       .stat-card{padding:20px 16px}
       .stat-num{font-size:28px}
+      #scroll-to-top{bottom:92px}
     }
 
     @media (max-width:480px){
@@ -1470,6 +1555,24 @@
     </div>
   </footer>
 
+  <div class="mobile-dock" id="mobile-dock" aria-label="Quick actions">
+    <a class="mobile-dock-item" href="#about" data-dock-target="about" aria-label="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10.5V20h13V10.5"></path></svg>
+    </a>
+    <div class="mobile-dock-divider" aria-hidden="true"></div>
+    <a class="mobile-dock-item" href="#work" data-dock-target="work" aria-label="Projects">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M8 4v16M12 8h5M12 12h5M12 16h5"></path></svg>
+    </a>
+    <div class="mobile-dock-divider" aria-hidden="true"></div>
+    <a class="mobile-dock-item" href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </a>
+    <div class="mobile-dock-divider" aria-hidden="true"></div>
+    <button class="mobile-dock-item" id="mobile-theme-toggle" type="button" aria-label="Color mode">
+      <svg id="mobile-theme-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+    </button>
+  </div>
+
   <!-- Scroll to top button -->
   <button id="scroll-to-top" aria-label="Scroll to top">↑</button>
 
@@ -1749,9 +1852,10 @@
         icon.innerHTML=iconMarkup(choice);
         options.forEach(btn=>btn.classList.toggle('active',btn.dataset.themeChoice===choice));
         if(metaTheme) metaTheme.setAttribute('content',applied==='dark'?'#000000':'#f4f8f1');
+        window.__setMobileThemeIcon&&window.__setMobileThemeIcon(applied);
       }
 
-      updateTheme('dark');
+      updateTheme(localStorage.getItem(KEY)||'dark');
 
       let nudgeShown=sessionStorage.getItem(NUDGE_KEY)==='1';
       let nudgeTimer=null;
@@ -1807,6 +1911,57 @@
       media.addEventListener('change',()=>{
         if((localStorage.getItem(KEY)||'light')==='system') updateTheme('system');
       });
+
+      window.__setPortfolioTheme=choice=>{
+        localStorage.setItem(KEY,choice);
+        updateTheme(choice);
+      };
+    })();
+
+    // 6.6 Mobile bottom dock actions
+    (function(){
+      const dock=document.getElementById('mobile-dock');
+      if(!dock) return;
+      const aboutLink=dock.querySelector('[data-dock-target="about"]');
+      const workLink=dock.querySelector('[data-dock-target="work"]');
+      const themeBtn=document.getElementById('mobile-theme-toggle');
+      const themeIcon=document.getElementById('mobile-theme-icon');
+      const about=document.getElementById('about');
+      const work=document.getElementById('work');
+
+      function setDockActive(){
+        if(window.innerWidth>768) return;
+        const y=window.scrollY+window.innerHeight*0.36;
+        const aboutTop=about?about.offsetTop:Infinity;
+        const workTop=work?work.offsetTop:Infinity;
+        const showWork=y>=workTop-50;
+        const showAbout=y>=aboutTop&&!showWork;
+        aboutLink&&aboutLink.classList.toggle('active',showAbout||!showWork);
+        workLink&&workLink.classList.toggle('active',showWork);
+      }
+
+      window.__setMobileThemeIcon=applied=>{
+        if(!themeIcon) return;
+        if(applied==='dark'){
+          themeIcon.innerHTML='<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"></path>';
+        }else{
+          themeIcon.innerHTML='<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"></path>';
+        }
+      };
+
+      window.__setMobileThemeIcon(document.body.dataset.theme||'dark');
+      setDockActive();
+
+      window.addEventListener('scroll',setDockActive,{passive:true});
+      window.addEventListener('resize',setDockActive,{passive:true});
+
+      if(themeBtn){
+        themeBtn.addEventListener('click',()=>{
+          const current=document.body.dataset.theme;
+          const next=current==='dark'?'light':'dark';
+          if(window.__setPortfolioTheme) window.__setPortfolioTheme(next);
+        });
+      }
     })();
 
     // 7. Hero parallax

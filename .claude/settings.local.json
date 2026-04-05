@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import docx; print\\(''available''\\)\")",
+      "Bash(py --version)",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(where py:*)",
+      "Bash(ls /c/Python*/python.exe)",
+      "Read(//c/Users/rm725/AppData/Local/Programs/Python/**)",
+      "Bash(/c/Python314/python.exe -c \"import docx; print\\(''available''\\)\")",
+      "Bash(/c/Python314/python.exe \"C:/Users/rm725/Desktop/Yoga/Portfolio/create_iran_war_doc.py\")"
+    ]
+  }
+}
