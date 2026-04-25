@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
-  <title id="title">Microsoft Office</title>
-  <desc id="desc">Office style logo tile.</desc>
-  <rect width="180" height="180" rx="24" fill="#151515"/>
-  <path d="M68 44l44-16 32 20v84l-44 20-32-20V44zm26 20v58l24 11V53L94 64z" fill="#D83B01"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img" viewBox="0 0 180 180"><title id="title">Microsoft Office</title><desc id="desc">Office style logo tile.</desc><rect width="180" height="180" fill="#151515" rx="24"/><path fill="#D83B01" d="M68 44l44-16 32 20v84l-44 20-32-20V44zm26 20v58l24 11V53L94 64z"/></svg>
