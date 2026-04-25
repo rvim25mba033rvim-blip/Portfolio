@@ -741,7 +741,32 @@
     .work-link:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.1)}
     .work-title{
       font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--white);
-      margin-bottom:12px;letter-spacing:.02em;position:relative;z-index:1;
+      margin-bottom:0;letter-spacing:.02em;position:relative;z-index:1;
+    }
+    .work-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
+      position:relative;
+      z-index:1;
+    }
+    .work-try{
+      font-size:10px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--accent);
+      border:1px solid var(--accent-dim);
+      border-radius:3px;
+      padding:5px 10px;
+      transition:background .2s,border-color .2s,color .2s;
+      white-space:nowrap;
+    }
+    .work-try:hover{
+      background:var(--accent);
+      color:var(--bg);
+      border-color:var(--accent);
     }
     .work-desc{
       font-size:13px;line-height:1.7;color:var(--white-60);margin-bottom:20px;
@@ -769,7 +794,8 @@
       margin-top:2px;
     }
     .work-shot{
-      margin-top:auto;
+      margin-top:0;
+      margin-bottom:14px;
       border:1px solid var(--border-hi);
       background:var(--bg);
       border-radius:8px;
@@ -786,14 +812,6 @@
       border-radius:6px;
       border:1px solid var(--border);
       background:var(--surface);
-    }
-    .work-shot span{
-      display:block;
-      margin-top:8px;
-      font-size:9px;
-      letter-spacing:.2em;
-      text-transform:uppercase;
-      color:var(--muted);
     }
     .work-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;position:relative;z-index:1}
     .work-tag{
@@ -1462,78 +1480,45 @@
       <div class="work-grid">
 
         <div class="work-card reveal">
-          <div class="work-category">GitHub Project</div>
-          <div class="work-header">
-            <div class="work-icon">🚀</div>
-            <div class="work-links">
-              <a href="https://rvim25mba033rvim-blip.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="work-link" title="Open Project">↗</a>
-            </div>
+          <div class="work-top">
+            <h3 class="work-title">My Portfolio</h3>
+            <a href="https://www.rahill.me/" target="_blank" rel="noopener noreferrer" class="work-try">Try Out</a>
           </div>
-          <h3 class="work-title">My Portfolio</h3>
-          <p class="work-desc">Personal website to showcase profile, skills, and work.</p>
+          <div class="work-shot">
+            <img src="./images/my-portfolio-screenshot.jpg" alt="My Portfolio screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
+          </div>
           <ul class="work-points">
             <li>Responsive single-page design with smooth navigation.</li>
             <li>Clean sections for projects, resume, and contact.</li>
           </ul>
-          <div class="work-tags">
-            <span class="work-tag">HTML/CSS</span>
-            <span class="work-tag">JavaScript</span>
-            <span class="work-tag">UI/UX</span>
-          </div>
-          <div class="work-shot">
-            <img src="./images/my-portfolio-screenshot.jpg" alt="My Portfolio screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
-            <span>Screenshot • Upload ratio: 16:10</span>
-          </div>
         </div>
 
         <div class="work-card reveal reveal-delay-1">
-          <div class="work-category">Activity + Web Project</div>
-          <div class="work-header">
-            <div class="work-icon">🌐</div>
-            <div class="work-links">
-              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="Open Link">↗</a>
-            </div>
+          <div class="work-top">
+            <h3 class="work-title">Jana Sankalpa Website</h3>
+            <a href="https://jana-sankalpa.vercel.app/" target="_blank" rel="noopener noreferrer" class="work-try">Try Out</a>
           </div>
-          <h3 class="work-title">Jana Sankalpa Website</h3>
-          <p class="work-desc">NGO website concept for outreach and communication.</p>
+          <div class="work-shot">
+            <img src="./images/jana-sankalpa-screenshot.jpg" alt="Jana Sankalpa website screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
+          </div>
           <ul class="work-points">
             <li>Simple structure for mission, services, and contact.</li>
             <li>Supports quick understanding and volunteer engagement.</li>
           </ul>
-          <div class="work-tags">
-            <span class="work-tag">NGO Website</span>
-            <span class="work-tag">Content Design</span>
-            <span class="work-tag">Outreach</span>
-          </div>
-          <div class="work-shot">
-            <img src="./images/jana-sankalpa-screenshot.jpg" alt="Jana Sankalpa website screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
-            <span>Screenshot • Upload ratio: 16:10</span>
-          </div>
         </div>
 
         <div class="work-card reveal reveal-delay-2">
-          <div class="work-category">Creative Project</div>
-          <div class="work-header">
-            <div class="work-icon">🪞</div>
-            <div class="work-links">
-              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="Open Project">↗</a>
-            </div>
+          <div class="work-top">
+            <h3 class="work-title">Mood Mirror</h3>
+            <a href="https://mood-mirror.vercel.app/" target="_blank" rel="noopener noreferrer" class="work-try">Try Out</a>
           </div>
-          <h3 class="work-title">Mood Mirror</h3>
-          <p class="work-desc">Mood-based interface concept with expressive feedback.</p>
+          <div class="work-shot">
+            <img src="./images/mood-mirror-screenshot.jpg" alt="Mood Mirror project screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
+          </div>
           <ul class="work-points">
             <li>Fast mood check-in flow with minimal steps.</li>
             <li>Visual states reflect user emotion clearly.</li>
           </ul>
-          <div class="work-tags">
-            <span class="work-tag">UI Concept</span>
-            <span class="work-tag">User Flow</span>
-            <span class="work-tag">Creative Tech</span>
-          </div>
-          <div class="work-shot">
-            <img src="./images/mood-mirror-screenshot.jpg" alt="Mood Mirror project screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
-            <span>Screenshot • Upload ratio: 16:10</span>
-          </div>
         </div>
 
       </div>
