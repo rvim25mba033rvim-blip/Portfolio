@@ -171,6 +171,77 @@
     }
     .theme-option:hover{color:var(--white);border-color:var(--border-hi);background:var(--white-20)}
     .theme-option.active{color:var(--accent);border-color:var(--accent-dim);background:rgba(232,255,90,.06)}
+    .theme-string{
+      position:fixed;
+      top:0;
+      right:54px;
+      width:96px;
+      height:178px;
+      border:none;
+      background:transparent;
+      padding:0;
+      cursor:none;
+      z-index:160;
+    }
+    .theme-string::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:44px;
+      height:10px;
+      border-radius:0 0 8px 8px;
+      background:linear-gradient(180deg,var(--border-hi),var(--border));
+      box-shadow:0 3px 12px rgba(0,0,0,.35);
+      margin-top:0;
+    }
+    .theme-string-line{
+      position:absolute;
+      inset:0;
+      overflow:visible;
+    }
+    .theme-string-line .string-shadow{
+      stroke:rgba(0,0,0,.45);
+      stroke-width:3;
+      stroke-linecap:round;
+      fill:none;
+      opacity:.6;
+      filter:blur(.3px);
+    }
+    .theme-string-line .string-main{
+      stroke:color-mix(in srgb,var(--white-60) 72%,var(--border-hi));
+      stroke-width:1.9;
+      stroke-linecap:round;
+      fill:none;
+      filter:drop-shadow(0 0 2px rgba(0,0,0,.22));
+    }
+    .theme-string-knob{
+      position:absolute;
+      left:50%;
+      top:124px;
+      width:22px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--border-hi);
+      background:var(--surface);
+      display:grid;
+      place-items:center;
+      box-shadow:0 6px 14px rgba(0,0,0,.45);
+      transform:translate(-50%,-50%);
+      transition:transform .15s var(--easing),border-color .2s,background .2s;
+      will-change:left,top,transform;
+    }
+    .theme-string-knob::before{
+      content:'';
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 3px var(--accent-dim);
+    }
+    .theme-string:hover .theme-string-knob{border-color:var(--accent)}
+    .theme-string.pull .theme-string-knob{transform:translate(-50%,-50%) scale(.96)}
     .theme-nudge{
       position:absolute;
       top:44px;
@@ -236,6 +307,17 @@
       box-shadow:0 12px 28px rgba(21,33,23,.15);
     }
     body[data-theme='light'] .theme-option.active{background:rgba(47,111,47,.09)}
+    body[data-theme='light'] .theme-string::before{
+      background:linear-gradient(180deg,#b9c9af,#cfdcc8);
+      box-shadow:0 3px 10px rgba(31,48,34,.18);
+    }
+    body[data-theme='light'] .theme-string-line .string-main{stroke:#516b57}
+    body[data-theme='light'] .theme-string-line .string-shadow{stroke:rgba(62,84,67,.28)}
+    body[data-theme='light'] .theme-string-knob{
+      background:#f7fbf4;
+      border-color:#9ab18f;
+      box-shadow:0 5px 12px rgba(31,48,34,.18);
+    }
     body[data-theme='light'] .theme-nudge{
       background:rgba(255,255,255,.96);
       color:#132117;
@@ -1100,6 +1182,9 @@
     /* Responsive */
     @media (max-width:768px){
       body{padding-bottom:104px}
+      .theme-string{right:6px;width:84px;height:150px}
+      .theme-string::before{width:34px;height:8px;border-radius:0 0 6px 6px}
+      .theme-string-knob{width:19px;height:30px;top:108px}
       .mobile-dock{display:flex}
       #scroll-to-top{width:45px;height:45px;bottom:20px;right:20px;font-size:18px}
       .wrapper{padding:0 20px}
@@ -1227,6 +1312,14 @@
   <div id="cursor-trail-layer"></div>
   <div id="cursor-ring"></div>
   <div id="cursor-dot"></div>
+
+  <button class="theme-string" id="theme-string" type="button" aria-label="Pull to toggle theme" title="Pull to toggle dark/light">
+    <svg class="theme-string-line" id="theme-string-line" viewBox="0 0 96 178" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+      <path id="theme-string-path-shadow" class="string-shadow" d="M48 10 Q48 66 48 124"></path>
+      <path id="theme-string-path" class="string-main" d="M48 10 Q48 66 48 124"></path>
+    </svg>
+    <span class="theme-string-knob" aria-hidden="true"></span>
+  </button>
 
   <nav id="navbar">
     <div class="nav-logo">R<span>.</span>M</div>
@@ -1822,6 +1915,10 @@
       const body=document.body;
       const metaTheme=document.querySelector('meta[name="theme-color"]');
       const toggle=document.getElementById('theme-toggle');
+      const stringToggle=document.getElementById('theme-string');
+      const stringPath=document.getElementById('theme-string-path');
+      const stringPathShadow=document.getElementById('theme-string-path-shadow');
+      const stringKnob=stringToggle?stringToggle.querySelector('.theme-string-knob'):null;
       const menu=document.getElementById('theme-menu');
       const options=document.querySelectorAll('.theme-option');
       const icon=document.getElementById('theme-icon');
@@ -1851,6 +1948,19 @@
         options.forEach(btn=>btn.classList.toggle('active',btn.dataset.themeChoice===choice));
         if(metaTheme) metaTheme.setAttribute('content',applied==='dark'?'#000000':'#f4f8f1');
         window.__setMobileThemeIcon&&window.__setMobileThemeIcon(applied);
+        if(stringToggle){
+          stringToggle.setAttribute('aria-label',applied==='dark'?'Pull to switch to light mode':'Pull to switch to dark mode');
+        }
+      }
+
+      function toggleDarkLight(){
+        const current=body.dataset.theme;
+        const next=current==='dark'?'light':'dark';
+        localStorage.setItem(KEY,next);
+        updateTheme(next);
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        hideNudge();
       }
 
       updateTheme(localStorage.getItem(KEY)||'dark');
@@ -1888,6 +1998,109 @@
         toggle.setAttribute('aria-expanded',String(open));
         hideNudge();
       });
+
+      if(stringToggle&&stringPath&&stringPathShadow&&stringKnob){
+        const anchorX=48;
+        const anchorY=10;
+        const restY=124;
+        const preset='ultra-elastic';
+        const physics=preset==='heavier-pendulum'
+          ? {stiffnessX:0.013,stiffnessY:0.02,damping:0.915,introX:20,introY:26,introVx:-1.8,introVy:1.1}
+          : {stiffnessX:0.016,stiffnessY:0.024,damping:0.885,introX:28,introY:36,introVx:-2.6,introVy:1.4};
+        const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let x=prefersReducedMotion?0:physics.introX;
+        let y=prefersReducedMotion?restY:restY+physics.introY;
+        let vx=prefersReducedMotion?0:physics.introVx;
+        let vy=prefersReducedMotion?0:physics.introVy;
+        let dragging=false;
+        let pullTriggered=false;
+        let pointerDownId=null;
+
+        function clamp(v,min,max){
+          return Math.max(min,Math.min(max,v));
+        }
+
+        function renderString(){
+          const endX=anchorX+x;
+          const endY=anchorY+y;
+          const speed=Math.hypot(vx,vy);
+          const t=performance.now();
+          const sag=8+Math.min(24,Math.abs(x)*0.34+Math.max(0,y-restY)*0.24+speed*1.5);
+          const flutter=Math.sin(t*0.022+x*0.2)*Math.min(5.5,speed*0.9+(dragging?2.2:0.8));
+          const c1x=anchorX+x*0.34+flutter;
+          const c1y=anchorY+y*0.28+sag*0.34;
+          const c2x=anchorX+x*0.83-flutter*0.62;
+          const c2y=anchorY+y*0.74+sag;
+          const d=`M ${anchorX} ${anchorY} C ${c1x.toFixed(2)} ${c1y.toFixed(2)} ${c2x.toFixed(2)} ${c2y.toFixed(2)} ${endX.toFixed(2)} ${endY.toFixed(2)}`;
+          stringPath.setAttribute('d',d);
+          stringPathShadow.setAttribute('d',d);
+          stringKnob.style.left=`${endX.toFixed(2)}px`;
+          stringKnob.style.top=`${endY.toFixed(2)}px`;
+        }
+
+        function physicsTick(){
+          if(!dragging){
+            vx=(vx+(-x)*physics.stiffnessX+(restY-y)*0.00075)*physics.damping;
+            vy=(vy+(restY-y)*physics.stiffnessY+Math.abs(x)*0.0005)*physics.damping;
+            x+=vx;
+            y+=vy;
+          }
+          renderString();
+          requestAnimationFrame(physicsTick);
+        }
+
+        function getPointerDelta(evt){
+          const rect=stringToggle.getBoundingClientRect();
+          const px=evt.clientX-rect.left;
+          const py=evt.clientY-rect.top;
+          return {
+            dx:clamp(px-anchorX,-34,34),
+            dy:clamp(py-anchorY,68,168)
+          };
+        }
+
+        function onPointerDown(evt){
+          dragging=true;
+          pullTriggered=false;
+          pointerDownId=evt.pointerId;
+          stringToggle.classList.add('pull');
+          stringToggle.setPointerCapture(evt.pointerId);
+          const p=getPointerDelta(evt);
+          x=p.dx;
+          y=p.dy;
+          vx=0;
+          vy=0;
+        }
+
+        function onPointerMove(evt){
+          if(!dragging||evt.pointerId!==pointerDownId) return;
+          const p=getPointerDelta(evt);
+          x=p.dx;
+          y=p.dy;
+        }
+
+        function onPointerUp(evt){
+          if(evt.pointerId!==pointerDownId) return;
+          dragging=false;
+          stringToggle.classList.remove('pull');
+          try{stringToggle.releasePointerCapture(evt.pointerId);}catch{}
+          const pulledDistance=y-restY;
+          vy+=Math.max(4.4,pulledDistance*0.28);
+          vx+=x*0.12;
+          if(pulledDistance>18&&!pullTriggered){
+            pullTriggered=true;
+            toggleDarkLight();
+          }
+          pointerDownId=null;
+        }
+
+        stringToggle.addEventListener('pointerdown',onPointerDown);
+        stringToggle.addEventListener('pointermove',onPointerMove);
+        stringToggle.addEventListener('pointerup',onPointerUp);
+        stringToggle.addEventListener('pointercancel',onPointerUp);
+        renderString();
+        physicsTick();
+      }
 
       options.forEach(btn=>{
         btn.addEventListener('click',()=>{
