@@ -709,7 +709,7 @@
 
     /* My Work */
     #work{border-top:1px solid var(--border)}
-    .work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px}
+    .work-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:920px}
     .work-card{
       border:1px solid var(--border);background:var(--surface);padding:32px;
       position:relative;transition:all .4s var(--easing-smooth);overflow:hidden;
@@ -746,6 +746,54 @@
     .work-desc{
       font-size:13px;line-height:1.7;color:var(--white-60);margin-bottom:20px;
       flex-grow:1;position:relative;z-index:1;
+    }
+    .work-points{
+      margin-bottom:18px;
+      position:relative;
+      z-index:1;
+    }
+    .work-points li{
+      display:flex;
+      gap:8px;
+      margin-bottom:8px;
+      font-size:12px;
+      color:var(--white-60);
+      line-height:1.55;
+    }
+    .work-points li::before{
+      content:'•';
+      color:var(--accent);
+      flex-shrink:0;
+      font-size:14px;
+      line-height:1;
+      margin-top:2px;
+    }
+    .work-shot{
+      margin-top:auto;
+      border:1px solid var(--border-hi);
+      background:var(--bg);
+      border-radius:8px;
+      padding:8px;
+      position:relative;
+      z-index:1;
+      overflow:hidden;
+    }
+    .work-shot img{
+      width:100%;
+      height:auto;
+      aspect-ratio:16/10;
+      object-fit:cover;
+      border-radius:6px;
+      border:1px solid var(--border);
+      background:var(--surface);
+    }
+    .work-shot span{
+      display:block;
+      margin-top:8px;
+      font-size:9px;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
     .work-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;position:relative;z-index:1}
     .work-tag{
@@ -1418,106 +1466,73 @@
           <div class="work-header">
             <div class="work-icon">🚀</div>
             <div class="work-links">
-              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="GitHub">→</a>
+              <a href="https://rvim25mba033rvim-blip.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="work-link" title="Open Project">↗</a>
             </div>
           </div>
-          <h3 class="work-title">Portfolio Website</h3>
-          <p class="work-desc">A modern, responsive portfolio website built with pure HTML, CSS, and JavaScript. Features custom cursor effects, particle animations, smooth scroll animations, and a cyberpunk-inspired design system.</p>
+          <h3 class="work-title">My Portfolio</h3>
+          <p class="work-desc">Personal website to showcase profile, skills, and work.</p>
+          <ul class="work-points">
+            <li>Responsive single-page design with smooth navigation.</li>
+            <li>Clean sections for projects, resume, and contact.</li>
+          </ul>
           <div class="work-tags">
             <span class="work-tag">HTML/CSS</span>
             <span class="work-tag">JavaScript</span>
             <span class="work-tag">UI/UX</span>
-            <span class="work-tag">Animations</span>
+          </div>
+          <div class="work-shot">
+            <img src="./images/my-portfolio-screenshot.jpg" alt="My Portfolio screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
+            <span>Screenshot • Upload ratio: 16:10</span>
           </div>
         </div>
 
         <div class="work-card reveal reveal-delay-1">
-          <div class="work-category">GitHub Project</div>
+          <div class="work-category">Activity + Web Project</div>
           <div class="work-header">
-            <div class="work-icon">📊</div>
+            <div class="work-icon">🌐</div>
             <div class="work-links">
-              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="GitHub">→</a>
+              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="Open Link">↗</a>
             </div>
           </div>
-          <h3 class="work-title">Data Analytics Projects</h3>
-          <p class="work-desc">Collection of data analysis and visualization projects using Python, SQL, and Power BI. Includes supply chain optimization, inventory analysis, and business intelligence dashboards.</p>
+          <h3 class="work-title">Jana Sankalpa Website</h3>
+          <p class="work-desc">NGO website concept for outreach and communication.</p>
+          <ul class="work-points">
+            <li>Simple structure for mission, services, and contact.</li>
+            <li>Supports quick understanding and volunteer engagement.</li>
+          </ul>
           <div class="work-tags">
-            <span class="work-tag">Python</span>
-            <span class="work-tag">SQL</span>
-            <span class="work-tag">Power BI</span>
-            <span class="work-tag">Analytics</span>
+            <span class="work-tag">NGO Website</span>
+            <span class="work-tag">Content Design</span>
+            <span class="work-tag">Outreach</span>
+          </div>
+          <div class="work-shot">
+            <img src="./images/jana-sankalpa-screenshot.jpg" alt="Jana Sankalpa website screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
+            <span>Screenshot • Upload ratio: 16:10</span>
           </div>
         </div>
 
         <div class="work-card reveal reveal-delay-2">
-          <div class="work-category">Activity</div>
+          <div class="work-category">Creative Project</div>
           <div class="work-header">
-            <div class="work-icon">🎓</div>
+            <div class="work-icon">🪞</div>
             <div class="work-links">
-              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="LinkedIn">↗</a>
+              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="Open Project">↗</a>
             </div>
           </div>
-          <h3 class="work-title">MBA Research & Case Studies</h3>
-          <p class="work-desc">Academic research projects focusing on supply chain management, operations optimization, and business analytics. Conducted comprehensive case studies on real-world business challenges.</p>
+          <h3 class="work-title">Mood Mirror</h3>
+          <p class="work-desc">Mood-based interface concept with expressive feedback.</p>
+          <ul class="work-points">
+            <li>Fast mood check-in flow with minimal steps.</li>
+            <li>Visual states reflect user emotion clearly.</li>
+          </ul>
           <div class="work-tags">
-            <span class="work-tag">Research</span>
-            <span class="work-tag">Supply Chain</span>
-            <span class="work-tag">Case Studies</span>
-            <span class="work-tag">Strategy</span>
+            <span class="work-tag">UI Concept</span>
+            <span class="work-tag">User Flow</span>
+            <span class="work-tag">Creative Tech</span>
           </div>
-        </div>
-
-        <div class="work-card reveal reveal-delay-3">
-          <div class="work-category">Activity</div>
-          <div class="work-header">
-            <div class="work-icon">⚙️</div>
-            <div class="work-links">
-              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="LinkedIn">↗</a>
-            </div>
-          </div>
-          <h3 class="work-title">Industrial Automation Projects</h3>
-          <p class="work-desc">Hands-on experience with PLC programming, control panel design, and industrial automation systems. Implemented Ladder Logic solutions for manufacturing process optimization.</p>
-          <div class="work-tags">
-            <span class="work-tag">PLC</span>
-            <span class="work-tag">Ladder Logic</span>
-            <span class="work-tag">Automation</span>
-            <span class="work-tag">Engineering</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal reveal-delay-4">
-          <div class="work-category">Activity</div>
-          <div class="work-header">
-            <div class="work-icon">📈</div>
-            <div class="work-links">
-              <a href="https://www.linkedin.com/in/rahil-m-a7151726a" target="_blank" rel="noopener noreferrer" class="work-link" title="LinkedIn">↗</a>
-            </div>
-          </div>
-          <h3 class="work-title">Market Research Initiatives</h3>
-          <p class="work-desc">Conducted market research and customer outreach campaigns during internship at Amazon Fresh. Analyzed market trends and identified growth opportunities in the Bengaluru region.</p>
-          <div class="work-tags">
-            <span class="work-tag">Market Research</span>
-            <span class="work-tag">Analysis</span>
-            <span class="work-tag">Customer Insights</span>
-            <span class="work-tag">Strategy</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal reveal-delay-5">
-          <div class="work-category">GitHub Project</div>
-          <div class="work-header">
-            <div class="work-icon">🔧</div>
-            <div class="work-links">
-              <a href="https://github.com/rvim25mba033rvim-blip" target="_blank" rel="noopener noreferrer" class="work-link" title="GitHub">→</a>
-            </div>
-          </div>
-          <h3 class="work-title">Open to Collaboration</h3>
-          <p class="work-desc">Actively seeking collaboration opportunities on data analytics, supply chain optimization, and automation projects. Open to contributing to open-source projects and learning from the community.</p>
-          <div class="work-tags">
-            <span class="work-tag">Collaboration</span>
-            <span class="work-tag">Open Source</span>
-            <span class="work-tag">Learning</span>
-            <span class="work-tag">Community</span>
+          <div class="work-shot">
+            <img src="./images/mood-mirror-screenshot.jpg" alt="Mood Mirror project screenshot" loading="lazy" onerror="this.onerror=null;this.src='./images/profile.jpg';" />
+            <span>Screenshot • Upload ratio: 16:10</span>
           </div>
         </div>
 
