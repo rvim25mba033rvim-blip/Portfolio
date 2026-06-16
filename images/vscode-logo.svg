@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
-  <title id="title">Visual Studio Code</title>
-  <desc id="desc">VS Code style logo tile.</desc>
-  <rect width="180" height="180" rx="24" fill="#0F172A"/>
-  <path d="M134 34l-60 44-22-18-16 14 22 20-22 20 16 14 22-18 60 44c4 3 10 0 10-5V39c0-5-6-8-10-5z" fill="#007ACC"/>
-  <path d="M74 78l44-34v92l-44-34-22 18-16-14 22-20-22-20 16-14 22 18z" fill="#1F9CF0" opacity="0.85"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img" viewBox="0 0 180 180"><title id="title">Visual Studio Code</title><desc id="desc">VS Code style logo tile.</desc><rect width="180" height="180" fill="#0F172A" rx="24"/><path fill="#007ACC" d="M134 34l-60 44-22-18-16 14 22 20-22 20 16 14 22-18 60 44c4 3 10 0 10-5V39c0-5-6-8-10-5z"/><path fill="#1F9CF0" d="M74 78l44-34v92l-44-34-22 18-16-14 22-20-22-20 16-14 22 18z" opacity=".85"/></svg>

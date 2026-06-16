@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
-  <title id="title">Prowess Logo</title>
-  <desc id="desc">Stylized P mark for Prowess skill tile.</desc>
-  <rect width="180" height="180" rx="24" fill="#0d0d0d"/>
-  <rect x="24" y="24" width="132" height="132" rx="18" fill="none" stroke="#c0e314" stroke-width="6"/>
-  <path d="M62 128V52h41c18 0 30 11 30 27s-12 27-30 27H84v22H62zm22-40h18c6 0 10-4 10-9s-4-9-10-9H84v18z" fill="#c0e314"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img" viewBox="0 0 180 180"><title id="title">Prowess Logo</title><desc id="desc">Stylized P mark for Prowess skill tile.</desc><rect width="180" height="180" fill="#0d0d0d" rx="24"/><rect width="132" height="132" x="24" y="24" fill="none" stroke="#c0e314" stroke-width="6" rx="18"/><path fill="#c0e314" d="M62 128V52h41c18 0 30 11 30 27s-12 27-30 27H84v22H62zm22-40h18c6 0 10-4 10-9s-4-9-10-9H84v18z"/></svg>
